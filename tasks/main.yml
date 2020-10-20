@@ -1,0 +1,5 @@
+---
+- block:
+  - import_tasks: dependencies.yml
+  - import_tasks: gophish.yml
+  become: true

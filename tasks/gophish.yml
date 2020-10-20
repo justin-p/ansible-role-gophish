@@ -1,0 +1,78 @@
+---
+- name: Check if we already downloaded the zip.
+  stat:
+    path: "{{ gophish_download_destination }}"
+  register: zip
+
+- name: "Downloading gophish-v{{ gophish_version }}-{{ gophish_platform }}-{{ gophish_arch }}.zip."
+  get_url:
+    validate_certs: True
+    url: "{{ gophish_url }}"
+    checksum: "{{ gophish_sha256 }}"
+    dest: "{{ gophish_download_destination }}"
+    mode: 0640
+    owner: "{{ gophish_user }}"
+    group: "{{ gophish_user }}"
+  when: not zip.stat.exists
+
+- name: Unzip gophish-v{{ gophish_version }}-{{ gophish_platform }}-{{ gophish_arch }}.zip.
+  unarchive:
+    src: "{{ gophish_download_destination }}"
+    dest: "{{ gophish_install_destination }}"
+    remote_src: yes
+    owner: "{{ gophish_user }}"
+    group: "{{ gophish_user }}"
+    mode: 0640
+  when: not zip.stat.exists
+
+- name: Ensure files of folders Gophish have the right ownership
+  file:
+    path: "{{ gophish_install_destination }}"
+    owner: "{{ gophish_user }}"
+    group: "{{ gophish_user }}"
+    recurse: True
+
+- name: Ensure gophish binary has the correct permissions.
+  file:
+    path: "{{ gophish_binary }}"
+    mode: 0740
+
+- name: Ensure gophish binary is allowed to bind to privileged ports using setcap
+  capabilities:
+    path: "{{ gophish_binary }}"
+    capability: "{{ gophish_binary_capability }}"
+    state: present
+  tags: molecule-idempotence-notest
+
+- name: Copy config.json file.
+  template:
+    src: "{{ gophish_config_template_source }}"
+    dest: "{{ gophish_config_template_destination }}"
+    owner: "{{ gophish_user }}"
+    group: "{{ gophish_user }}"
+    mode: 0640
+
+- name: Ensure gophish service file is properly set
+  template:
+    src: "{{ gophish_service_template_source }}"
+    dest: "{{ gophish_service_template_destination }}"
+    owner: "{{ gophish_user }}"
+    group: "{{ gophish_user }}"
+    mode: 0640
+  notify:
+    - Reload systemd.
+
+- name: Ensure gophish is properly started
+  service:
+    name: "{{ gophish_service }}"
+    state: started
+    enabled: yes
+
+- name: Get contents of gophish log file
+  shell: "cat /{{gophish_service_log_directory}}/gophish.log | grep 'Please login with the username admin' | cut -d = -f 4 | tail -1"
+  changed_when: False
+  register: gophish_log
+
+- name: "{{ gophish_log.stdout }}"
+  debug:
+    msg: "{{ gophish_log.stdout }}"

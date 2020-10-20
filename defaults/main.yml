@@ -1,0 +1,14 @@
+---
+gophish_version: 0.11.0
+gophish_platform: linux
+gophish_arch: 64bit
+gophish_sha256: sha256:f33ac7695850132c04d190f83ef54732421a8d4578be1475d3a819fe6173c462
+gophish_user: "{{ ansible_user }}"
+gophish_download_destination: "/tmp/gophish-v{{ gophish_version }}-{{ gophish_platform }}-{{ gophish_arch }}.zip"
+gophish_install_destination: "/home/{{ gophish_user }}/gophish"
+gophish_config_template_source: "config.json.j2"
+gophish_config_template_destination: "{{ gophish_install_destination }}/config.json"
+gophish_service: gophish.service
+gophish_service_template_source: gophish.service.j2
+gophish_service_template_destination: "/etc/systemd/system/{{ gophish_service }}"
+gophish_service_log_directory: /var/log/gophish

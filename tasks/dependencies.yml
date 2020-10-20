@@ -1,0 +1,20 @@
+---
+- name: Update APT package cache.
+  apt:
+    update_cache: yes
+
+- name: Create directories for gophish.
+  file:
+    path: "{{ item.path }}"
+    state: directory
+    mode: "{{ item.mode }}"
+    owner: "{{ item.user }}"
+    group: "{{ item.group }}"
+  with_items:
+    - { path: "{{ gophish_install_destination }}",   user: "{{ gophish_user }}", group: "{{ gophish_user }}", mode: '0755' }
+    - { path: "{{ gophish_service_log_directory }}", user: "{{ gophish_user }}", group: "root",               mode: '0660' }
+
+- name: Install dependency packages. # noqa 403
+  apt:
+    name: "{{ gophish_dependency_packages }}"
+    state: latest
