@@ -11,7 +11,7 @@
 
     - name: Verify if the gophish service is running
       assert:
-        that: services_state.ansible_facts.services["gophish.server.service"].state == "running"
+        that: services_state.ansible_facts.services["gophish.service"].state == "running"
 
     - name: Check gophish phising page
       uri:
