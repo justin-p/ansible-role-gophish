@@ -5,7 +5,7 @@
 [![Ansible Role Downloads](https://img.shields.io/ansible/role/d/51375?label=Ansible%20Role%20Downloads&logo=ansible&style=flat-square)](https://galaxy.ansible.com/justin_p/gophish)
 [![Github Actions](https://img.shields.io/github/workflow/status/justin-p/ansible-role-chisel/CI?label=Github%20Actions&logo=github&style=flat-square)](https://github.com/justin-p/ansible-role-gophish/actions)
 
-A Ansible role that deploys the [gophish](https://github.com/gophish/gophish) application. This role does not install any mail services for relaying or web services for proxing gophish. You are expected to handle this in your own playbooks.
+A Ansible role that deploys the [gophish](https://github.com/gophish/gophish) application as a systemd service. This role does not install any mail services for relaying or web services for proxing gophish. You are expected to handle this in your own playbooks.
 
 ## Requirements
 
