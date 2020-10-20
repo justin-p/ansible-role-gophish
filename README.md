@@ -1,4 +1,4 @@
-# ansible-role-chisel
+# ansible-role-gophish
 
 [![Ansible Role Name](https://img.shields.io/ansible/role/UPDATE_ME?label=Role%20Name&logo=ansible&style=flat-square)](https://galaxy.ansible.com/justin_p/gophish)
 [![Ansible Quality Score](https://img.shields.io/ansible/quality/UPDATE_ME?label=Ansible%20Quality%20Score&logo=ansible&style=flat-square)](https://galaxy.ansible.com/justin_p/gophish)
