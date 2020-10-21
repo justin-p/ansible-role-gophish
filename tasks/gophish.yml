@@ -83,7 +83,7 @@
   delay: 3
   changed_when: False
   register: gophish_log
-  until: gophish_log.stdout | length 0
+  until: gophish_log.stdout | length > 0
 
 - name: "{{ gophish_log.stdout }}. You will be prompted to change this temporary password."
   debug:
