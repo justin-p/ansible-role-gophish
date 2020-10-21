@@ -6,3 +6,13 @@
   version: 2.3.5
 - name: robertdebock.users
   version: 4.4.0
+- name: robertdebock.firewall
+  version: 3.2.8
+- name: robertdebock.hostname
+  version: 2.0.7
+- name: geerlingguy.postfix
+  version: 2.0.0
+- name: nginxinc.nginx
+  version: 0.17.2
+- name: nginxinc.nginx_config
+  version: 0.2.0
