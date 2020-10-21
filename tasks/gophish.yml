@@ -62,6 +62,9 @@
   notify:
     - Reload systemd.
 
+- name: Run all notified handlers
+  meta: flush_handlers
+
 - name: Ensure gophish is properly started
   service:
     name: "{{ gophish_service }}"
