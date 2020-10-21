@@ -82,6 +82,7 @@
   retries: 10
   delay: 6
   changed_when: False
+  ignore_errors: yes
   register: gophish_log
   until: gophish_log.stdout | length > 0
 
