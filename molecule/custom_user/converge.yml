@@ -1,0 +1,24 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - include_role:
+        name: robertdebock.bootstrap
+    - include_role:
+        name: robertdebock.update
+      vars:
+        update_reboot: no
+    - include_role:
+        name: robertdebock.users
+      vars:
+        users_group_list:
+          - name: gophish
+        users_user_list:
+          - name: gophish
+            group: gophish
+            cron_allow: no
+    - name: "Include gophish"
+      include_role:
+        name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
+      vars:
+        gophish_user: gophish

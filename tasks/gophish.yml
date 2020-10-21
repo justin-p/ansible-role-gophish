@@ -22,7 +22,7 @@
     remote_src: yes
     owner: "{{ gophish_user }}"
     group: "{{ gophish_user }}"
-    mode: 0640
+    mode: 0740
   when: not zip.stat.exists
 
 - name: Ensure files of folders Gophish have the right ownership
@@ -50,7 +50,7 @@
     dest: "{{ gophish_config_template_destination }}"
     owner: "{{ gophish_user }}"
     group: "{{ gophish_user }}"
-    mode: 0640
+    mode: 0740
 
 - name: Ensure gophish service file is properly set
   template:
@@ -79,8 +79,12 @@
       tail -1 |
       cut -d = -f 4 |
       tr -d \"
+  retries: 10
+  delay: 6
   changed_when: False
+  ignore_errors: yes
   register: gophish_log
+  until: gophish_log.stdout | length > 0
 
 - name: "{{ gophish_log.stdout }}. You will be prompted to change this temporary password."
   debug:
