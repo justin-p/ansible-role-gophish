@@ -78,7 +78,7 @@ jobs:
         run: pip3 install molecule docker molecule-docker yamllint ansible-lint
 
       - name: Run Molecule full_example_playbook scenario tests.
-        run: molecule test --scenario-name=custom_user
+        run: molecule test --scenario-name=full_example_playbook
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
