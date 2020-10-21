@@ -28,7 +28,7 @@ on:
 
 jobs:
   default:
-    name: Run molecule tests.
+    name: Run default molecule scenario.
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -48,7 +48,7 @@ jobs:
       - name: Install test dependencies.
         run: pip3 install molecule docker molecule-docker yamllint ansible-lint
 
-      - name: Run Molecule default scenario tests.
+      - name: Run Molecule tests.
         run: molecule test
         env:
           PY_COLORS: '1'
@@ -56,7 +56,7 @@ jobs:
           MOLECULE_DISTRO: ${{ matrix.distro }}
 
   custom_user:
-    name: Run molecule tests.
+    name: Run molecule custom_users scenario.
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -87,7 +87,8 @@ jobs:
     name: Push release to Ansible Galaxy.
     if: github.event_name == 'release'
     needs:
-      - test
+      - default
+      - custom_user
     runs-on: ubuntu-latest
     steps:
       - name: galaxy
