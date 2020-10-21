@@ -79,8 +79,8 @@
       tail -1 |
       cut -d = -f 4 |
       tr -d \"
-  retries: 3
-  delay: 3
+  retries: 10
+  delay: 6
   changed_when: False
   register: gophish_log
   until: gophish_log.stdout | length > 0
