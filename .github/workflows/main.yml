@@ -89,7 +89,7 @@ jobs:
     if: github.event_name == 'release'
     needs:
       - default
-      - custom_user
+      - full_example_playbook
     runs-on: ubuntu-latest
     steps:
       - name: galaxy
