@@ -22,7 +22,7 @@
     remote_src: yes
     owner: "{{ gophish_user }}"
     group: "{{ gophish_user }}"
-    mode: 0640
+    mode: 0740
   when: not zip.stat.exists
 
 - name: Ensure files of folders Gophish have the right ownership
@@ -50,7 +50,7 @@
     dest: "{{ gophish_config_template_destination }}"
     owner: "{{ gophish_user }}"
     group: "{{ gophish_user }}"
-    mode: 0640
+    mode: 0740
 
 - name: Ensure gophish service file is properly set
   template:
@@ -62,17 +62,26 @@
   notify:
     - Reload systemd.
 
+- name: Run all notified handlers
+  meta: flush_handlers
+
 - name: Ensure gophish is properly started
   service:
     name: "{{ gophish_service }}"
     state: started
     enabled: yes
 
-- name: Get contents of gophish log file # noqa 306
-  shell: "cat /{{ gophish_service_log_directory }}/gophish.log | grep 'Please login with the username admin' | cut -d = -f 4 | tail -1"
+- name: Get contents of gophish log file and find the temporary admin password # noqa 306
+  shell:
+    cmd: |
+      cat {{ gophish_service_log_directory }}/gophish.log |
+      grep 'Please login with the username admin' |
+      tail -1 |
+      cut -d = -f 4 |
+      tr -d \"
   changed_when: False
   register: gophish_log
 
-- name: "{{ gophish_log.stdout }}"
+- name: "{{ gophish_log.stdout }}. You will be prompted to change this temporary password."
   debug:
     msg: "{{ gophish_log.stdout }}"

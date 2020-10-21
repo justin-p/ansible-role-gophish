@@ -1,2 +1,8 @@
 - name: geerlingguy.pip
   version: 2.0.0
+- name: robertdebock.bootstrap
+  version: 4.3.2
+- name: robertdebock.update
+  version: 2.3.5
+- name: robertdebock.users
+  version: 4.4.0

@@ -20,3 +20,5 @@
     - name: "Include gophish"
       include_role:
         name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
+      vars:
+        gophish_user: gophish

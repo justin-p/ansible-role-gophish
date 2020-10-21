@@ -9,13 +9,8 @@
       service_facts:
       register: services_state
 
-    - name: Gather gophish user info
-      getent: database=passwd key=gophish
-      register: custom_user
-
     - name: Verify that custom user is created
-      assert:
-        that: (custom_user.getent_passwd.gophish is defined) and (custom_user.getent_passwd.gophish | length > 0)
+      getent: database=passwd key=gophish
 
     - name: Verify if the gophish service is running
       assert:
