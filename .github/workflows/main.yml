@@ -77,7 +77,35 @@ jobs:
       - name: Install test dependencies.
         run: pip3 install molecule docker molecule-docker yamllint ansible-lint
 
-      - name: Run Molecule default custom user scenario tests.
+      - name: Run Molecule custom user scenario tests.
+        run: molecule test --scenario-name=custom_user
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+          MOLECULE_DISTRO: ${{ matrix.distro }}
+
+  full_example_playbook:
+    name: Run molecule full_example_playbook scenario.
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        distro:
+          - ubuntu2004
+          - ubuntu1804
+
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install test dependencies.
+        run: pip3 install molecule docker molecule-docker yamllint ansible-lint
+
+      - name: Run Molecule full_example_playbook scenario tests.
         run: molecule test --scenario-name=custom_user
         env:
           PY_COLORS: '1'
