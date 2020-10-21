@@ -25,15 +25,6 @@
           - name: http
           - name: https
     - include_role:
-        name: robertdebock.users
-      vars:
-        users_group_list:
-          - name: gophish
-        users_user_list:
-          - name: gophish
-            group: gophish
-            cron_allow: no
-    - include_role:
         name: robertdebock.hostname
       vars:
         hostname: mail.domain.tld
