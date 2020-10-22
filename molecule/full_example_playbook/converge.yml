@@ -39,7 +39,7 @@
           - 80
           - 443
         nginx_logrotate_conf_enable: true
-    - include_role: 
+    - include_role:
         name: nginxinc.nginx_config
       vars:
         nginx_config_http_template_enable: true
@@ -81,6 +81,13 @@
                     address: localhost
                     port: 8080
                     weight: 1
+    - include_role:
+        name: robertdebock.cron
+    - include_role:
+        name: robertdebock.logrotate
+      vars:
+        - name: gophish
+          path: "/var/log/gophish/*.log"
     - name: "Include gophish"
       include_role:
         name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
