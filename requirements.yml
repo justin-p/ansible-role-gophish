@@ -16,3 +16,7 @@
   version: 0.17.2
 - name: nginxinc.nginx_config
   version: 0.2.0
+- name: robertdebock.cron
+  version: 1.7.0
+- name: robertdebock.logrotate
+  version: 1.4.5
