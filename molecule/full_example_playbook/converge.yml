@@ -109,7 +109,7 @@
         - name: gophish
           path: "/var/log/gophish/*.log"
     - include_role:
-        name: justin_p.gophish
+        name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
       vars:
         gophish_user: gophish
         gophish_config_template_source: "{{ playbook_dir }}/templates/config.json.j2"
