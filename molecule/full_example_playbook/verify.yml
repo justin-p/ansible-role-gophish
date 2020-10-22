@@ -8,29 +8,6 @@
     - name: Verify that custom user is created
       getent: database=passwd key=gophish
 
-    - name: Verify if NGINX service is running
-      service:
-        name: nginx
-        state: started
-        enabled: yes
-      check_mode: yes
-      register: nginx_service
-      failed_when: (nginx_service is changed) or (nginx_service is failed)
-
-    - name: Verify NGINX is up and running
-      uri:
-        url: http://localhost
-        status_code: 404
-
-    - name: Verify if postfix service is running
-      service:
-        name: postfix
-        state: started
-        enabled: yes
-      check_mode: yes
-      register: postfix_service
-      failed_when: (postfix_service is changed) or (postfix_service is failed)
-
     - name: Verify if the gophish service is running
       service:
         name: gophish
@@ -50,3 +27,32 @@
         url: https://127.0.0.1:3333/login
         status_code: 200
         validate_certs: no
+
+    - name: Verify if NGINX service is running
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+      check_mode: yes
+      register: nginx_service
+      failed_when: (nginx_service is changed) or (nginx_service is failed)
+
+    - name: Verify NGINX https redirect is up and running
+      uri:
+        url: http://localhost
+        status_code: 301
+
+    - name: Verify NGINX gophish reverse proxy is up and running
+      uri:
+        url: https://localhost
+        status_code: 404
+        validate_certs: no
+
+    - name: Verify if postfix service is running
+      service:
+        name: postfix
+        state: started
+        enabled: yes
+      check_mode: yes
+      register: postfix_service
+      failed_when: (postfix_service is changed) or (postfix_service is failed)
