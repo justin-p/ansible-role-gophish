@@ -100,6 +100,7 @@ jobs:
           - robertdebock/redhat:latest
           - robertdebock/oraclelinux:7
           - robertdebock/oraclelinux:latest
+
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v2
