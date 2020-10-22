@@ -26,5 +26,3 @@
   version: 1.7.0
 - name: robertdebock.logrotate
   version: 1.4.5
-- name: robertdebock.mysql
-  version: 3.5.1
