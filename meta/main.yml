@@ -18,6 +18,7 @@ galaxy_info:
 dependencies:
   - role: robertdebock.update_package_cache
     version: 1.1.14
+    tags: molecule-idempotence-notest
   - role: robertdebock.core_dependencies
     version: 1.5.0
   - role: geerlingguy.pip

@@ -109,6 +109,13 @@
         - name: gophish
           path: "/var/log/gophish/*.log"
     - include_role:
+        name: robertdebock.mysql
+      vars:
+        mysql_databases:
+          - name: my_db
+            encoding: utf8
+            collation: utf8_bin
+    - include_role:
         name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
       vars:
         gophish_user: gophish
