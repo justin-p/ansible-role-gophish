@@ -22,3 +22,5 @@
   version: 1.7.0
 - name: robertdebock.logrotate
   version: 1.4.5
+- name: robertdebock.update_package_cache
+  version: 1.1.14
