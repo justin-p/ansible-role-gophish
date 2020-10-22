@@ -1,8 +1,4 @@
 ---
-- name: Update APT package cache.
-  apt:
-    update_cache: yes
-
 - name: Create directories for gophish.
   file:
     path: "{{ item.path }}"

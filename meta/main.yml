@@ -16,6 +16,7 @@ galaxy_info:
   galaxy_tags: ["gophish"]
 
 dependencies:
+  - role: robertdebock.update_package_cache
   - role: geerlingguy.pip
     vars:
       pip_package: python3-pip
