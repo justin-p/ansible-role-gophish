@@ -120,56 +120,12 @@ jobs:
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTRO: ${{ matrix.image }}
 
-  example_playbook_mysql:
-    name: Test mysql scenario.
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        image:
-          - robertdebock/opensuse:latest
-          - robertdebock/centos:7
-          - robertdebock/centos:8
-          - robertdebock/alpine:3
-          - robertdebock/alpine:edge
-          - robertdebock/archlinux:latest
-          - robertdebock/debian:latest
-          - robertdebock/ubuntu:focal
-          - robertdebock/ubuntu:bionic
-          - robertdebock/ubuntu:xenial
-          - robertdebock/amazonlinux:1
-          - robertdebock/amazonlinux:latest
-          - robertdebock/fedora:30
-          - robertdebock/fedora:31
-          - robertdebock/fedora:latest
-          - robertdebock/fedora:rawhide
-          - robertdebock/redhat:7
-          - robertdebock/redhat:latest
-          - robertdebock/oraclelinux:7
-          - robertdebock/oraclelinux:latest
-
-    steps:
-      - name: Check out the codebase.
-        uses: actions/checkout@v2
-      - name: Set up Python 3.
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
-      - name: Install test dependencies.
-        run: pip3 install molecule docker molecule-docker yamllint ansible-lint
-      - name: Run Molecule full_example_playbook scenario tests.
-        run: molecule test --scenario-name=example_playbook_mysql
-        env:
-          PY_COLORS: '1'
-          ANSIBLE_FORCE_COLOR: '1'
-          MOLECULE_DISTRO: ${{ matrix.image }}
-
   release:
     name: Push release to Ansible Galaxy.
     if: github.event_name == 'release'
     needs:
       - default
       - example_playbook_sqlite
-      - example_playbook_mysql
     runs-on: ubuntu-latest
     steps:
       - name: galaxy
