@@ -37,11 +37,6 @@
       register: nginx_service
       failed_when: (nginx_service is changed) or (nginx_service is failed)
 
-    - name: Verify NGINX https redirect is up and running
-      uri:
-        url: http://localhost
-        status_code: 301
-
     - name: Verify NGINX gophish reverse proxy is up and running
       uri:
         url: https://localhost
