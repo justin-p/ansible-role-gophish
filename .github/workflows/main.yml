@@ -75,7 +75,7 @@ jobs:
           MOLECULE_DISTRO: ${{ matrix.image }}
 
   example_playbook_sqlite:
-    name: Test sqlite scenario.
+    name: Test playbook scenario.
     runs-on: ubuntu-latest
     strategy:
       matrix:
