@@ -38,7 +38,7 @@ None.
 | gophish_url                 | `https://github.com/gophish/gophish/releases/download/v{{ gophish_version }}/gophish-v{{ gophish_version }}-{{ gophish_platform }}-{{ gophish_arch }}.zip` |
 | gophish_binary              | {{ gophish_install_destination }}/gophish                                                                                                                |
 | gophish_binary_capability   | cap_net_bind_service+eip                                                                                                                                 |
-| gophish_dependency_packages | ['unzip', 'libcap2-bin']                                                                                                                                 |
+| gophish_dependency_packages | ['libcap2-bin', 'coreutils', 'grep']                                                                                                                                 |
 
 ## Dependencies
 
