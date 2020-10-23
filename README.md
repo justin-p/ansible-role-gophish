@@ -42,7 +42,9 @@ None.
 
 ## Dependencies
 
-[geerlingguy.pip](https://github.com/geerlingguy/ansible-role-pip)
+[geerlingguy.pip](https://github.com/geerlingguy/ansible-role-pip)  
+[robertdebock.update_package_cache](https://github.com/robertdebock/ansible-role-update_package_cache)  
+[robertdebock.core_dependencies](https://github.com/robertdebock/ansible-role-core_dependencies)  
 
 ## Example Playbooks
 
