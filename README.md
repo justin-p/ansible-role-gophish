@@ -181,6 +181,32 @@ This playbook is tested as part of the role CI.
         gophish_config_template_source: "{{ playbook_dir }}/templates/config.json.j2"
 ```
 
+#### Contents of `{{ playbook_dir }}/templates/config.json.j2`
+```
+{
+	"admin_server": {
+		"listen_url": "127.0.0.1:3333",
+		"use_tls": true,
+		"cert_path": "gophish_admin.crt",
+		"key_path": "gophish_admin.key"
+	},
+	"phish_server": {
+		"listen_url": "127.0.0.1:8080",
+		"use_tls": false,
+		"cert_path": "example.crt",
+		"key_path": "example.key"
+	},
+	"db_name": "sqlite3",
+	"db_path": "gophish.db",
+	"migrations_prefix": "db/db_",
+	"contact_address": "",
+	"logging": {
+		"filename": "",
+		"level": ""
+	}
+}
+```
+
 ## Local Development
 
 This role includes molecule that will spin up a local docker environment to deploy, configure and test this role.
