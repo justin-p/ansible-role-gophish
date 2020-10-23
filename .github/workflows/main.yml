@@ -38,7 +38,6 @@ jobs:
           - robertdebock/centos:7
           - robertdebock/centos:8
           - robertdebock/alpine:3
-          - robertdebock/alpine:edge
           - robertdebock/archlinux:latest
           - robertdebock/debian:latest
           - robertdebock/ubuntu:focal
@@ -49,11 +48,8 @@ jobs:
           - robertdebock/fedora:30
           - robertdebock/fedora:31
           - robertdebock/fedora:latest
-          - robertdebock/fedora:rawhide
           - robertdebock/redhat:7
           - robertdebock/redhat:latest
-          - robertdebock/oraclelinux:7
-          - robertdebock/oraclelinux:latest
 
     steps:
       - name: Check out the codebase.
@@ -84,7 +80,6 @@ jobs:
           - robertdebock/centos:7
           - robertdebock/centos:8
           - robertdebock/alpine:3
-          - robertdebock/alpine:edge
           - robertdebock/archlinux:latest
           - robertdebock/debian:latest
           - robertdebock/ubuntu:focal
@@ -95,11 +90,8 @@ jobs:
           - robertdebock/fedora:30
           - robertdebock/fedora:31
           - robertdebock/fedora:latest
-          - robertdebock/fedora:rawhide
           - robertdebock/redhat:7
           - robertdebock/redhat:latest
-          - robertdebock/oraclelinux:7
-          - robertdebock/oraclelinux:latest
 
     steps:
       - name: Check out the codebase.
