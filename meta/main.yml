@@ -9,19 +9,19 @@ galaxy_info:
 
   platforms:
     - name: opensuse
-      version:
+      versions:
         - 15.2
     - name: centos
-      version:
+      versions:
         - any
     - name: alpine
-      version:
+      versions:
         - any
     - name: ArchLinux
-      version:
+      versions:
         - any
     - name: debian
-      version:
+      versions:
         - buster
     - name: Ubuntu
       versions:
@@ -29,18 +29,18 @@ galaxy_info:
         - artful
         - xenial
     - name: Amazon
-      version:
+      versions:
         - 2018.03
     - name: Amazon Linux 2
-      version:
+      versions:
         - any
     - name: Fedora
-      version:
+      versions:
         - 30
         - 31
         - 32
     - name: EL
-      version:
+      versions:
         - 7
         - 8
 
