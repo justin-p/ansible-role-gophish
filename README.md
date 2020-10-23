@@ -182,7 +182,8 @@ This playbook is tested as part of the role CI.
 ```
 
 #### Contents of `{{ playbook_dir }}/templates/config.json.j2`
-```
+
+```json
 {
 	"admin_server": {
 		"listen_url": "127.0.0.1:3333",
