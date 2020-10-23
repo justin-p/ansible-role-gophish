@@ -74,7 +74,7 @@
 - name: Get contents of gophish log file and find the temporary admin password # noqa 306
   shell:
     cmd: |
-      cat {{ gophish_service_log_directory }}/gophish.log |
+      cat {{ gophish_service_log_directory }}/gophish*.log |
       grep 'Please login with the username admin' |
       tail -1 |
       cut -d = -f 4 |
