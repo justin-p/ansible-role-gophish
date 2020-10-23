@@ -8,12 +8,43 @@ galaxy_info:
   min_ansible_version: 2.9
 
   platforms:
+  - name: opensuse
+    version:
+       - 15.2
+  - name: centos
+    version:
+       -  any
+  - name: alpine
+    version:
+       -  any
+  - name: ArchLinux
+    version:
+       -  any
+  - name: debian
+    version:
+       -  buster
   - name: Ubuntu
     versions:
       - bionic
       - artful
+      - xenial
+  - name: Amazon
+    version:
+       - 2018.03  
+  - name: Amazon Linux 2
+    version:
+       - any
+  - name: Fedora
+    version:
+       - 30
+       - 31
+       - 32
+  - name: EL
+    version:
+       - 7
+       - 8
 
-  galaxy_tags: ["gophish"]
+  galaxy_tags: ["gophish", "phising"]
 
 dependencies:
   - role: robertdebock.update_package_cache
