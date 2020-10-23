@@ -51,6 +51,8 @@
     owner: "{{ gophish_user }}"
     group: "{{ gophish_user }}"
     mode: 0740
+  notify:
+    - Reload gophish.
 
 - name: Ensure gophish service file is properly set
   template:
