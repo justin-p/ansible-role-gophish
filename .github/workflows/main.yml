@@ -29,13 +29,31 @@ on:
 
 jobs:
   default:
-    name: Run default molecule scenario.
+    name: Test default scenario.
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        distro:
-          - ubuntu2004
-          - ubuntu1804
+        image:
+          - robertdebock/opensuse:latest
+          - robertdebock/centos:7
+          - robertdebock/centos:8
+          - robertdebock/alpine:3
+          - robertdebock/alpine:edge
+          - robertdebock/archlinux:latest
+          - robertdebock/debian:latest
+          - robertdebock/ubuntu:focal
+          - robertdebock/ubuntu:bionic
+          - robertdebock/ubuntu:xenial
+          - robertdebock/amazonlinux:1
+          - robertdebock/amazonlinux:latest
+          - robertdebock/fedora:30
+          - robertdebock/fedora:31
+          - robertdebock/fedora:latest
+          - robertdebock/fedora:rawhide
+          - robertdebock/redhat:7
+          - robertdebock/redhat:latest
+          - robertdebock/oraclelinux:7
+          - robertdebock/oraclelinux:latest
 
     steps:
       - name: Check out the codebase.
@@ -54,16 +72,34 @@ jobs:
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
-          MOLECULE_DISTRO: ${{ matrix.distro }}
+          MOLECULE_DISTRO: ${{ matrix.image }}
 
-  custom_user:
-    name: Run molecule custom_users scenario.
+  example_playbook_sqlite:
+    name: Test playbook scenario.
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        distro:
-          - ubuntu2004
-          - ubuntu1804
+        image:
+          - robertdebock/opensuse:latest
+          - robertdebock/centos:7
+          - robertdebock/centos:8
+          - robertdebock/alpine:3
+          - robertdebock/alpine:edge
+          - robertdebock/archlinux:latest
+          - robertdebock/debian:latest
+          - robertdebock/ubuntu:focal
+          - robertdebock/ubuntu:bionic
+          - robertdebock/ubuntu:xenial
+          - robertdebock/amazonlinux:1
+          - robertdebock/amazonlinux:latest
+          - robertdebock/fedora:30
+          - robertdebock/fedora:31
+          - robertdebock/fedora:latest
+          - robertdebock/fedora:rawhide
+          - robertdebock/redhat:7
+          - robertdebock/redhat:latest
+          - robertdebock/oraclelinux:7
+          - robertdebock/oraclelinux:latest
 
     steps:
       - name: Check out the codebase.
@@ -77,19 +113,19 @@ jobs:
       - name: Install test dependencies.
         run: pip3 install molecule docker molecule-docker yamllint ansible-lint
 
-      - name: Run Molecule default custom user scenario tests.
-        run: molecule test --scenario-name=custom_user
+      - name: Run Molecule full_example_playbook scenario tests.
+        run: molecule test --scenario-name=example_playbook_sqlite
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
-          MOLECULE_DISTRO: ${{ matrix.distro }}
+          MOLECULE_DISTRO: ${{ matrix.image }}
 
   release:
     name: Push release to Ansible Galaxy.
     if: github.event_name == 'release'
     needs:
       - default
-      - custom_user
+      - example_playbook_sqlite
     runs-on: ubuntu-latest
     steps:
       - name: galaxy

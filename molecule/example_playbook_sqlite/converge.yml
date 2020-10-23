@@ -1,0 +1,118 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - include_role:
+        name: robertdebock.update_package_cache
+      tags: molecule-idempotence-notest
+    - include_role:
+        name: robertdebock.bootstrap
+    - include_role:
+        name: robertdebock.update
+      vars:
+        update_reboot: no
+    - include_role:
+        name: robertdebock.firewall
+      vars:
+        firewall_services:
+          - name: ssh
+          - name: http
+          - name: https
+    - include_role:
+        name: robertdebock.users
+      vars:
+        users_group_list:
+          - name: gophish
+        users_user_list:
+          - name: gophish
+            group: gophish
+            cron_allow: no
+    - include_role:
+        name: robertdebock.hostname
+      vars:
+        hostname: gophish.local
+        hostname_reboot: no
+    - include_role:
+        name: geerlingguy.postfix
+    - include_role:
+        name: geerlingguy.pip
+      vars:
+        pip_package: python3-pip
+    - include_role:
+        name: robertdebock.openssl
+      vars:
+        openssl_items:
+          - name: phishlet.gophish.local
+            common_name: phishlet.gophish.local
+    - include_role:
+        name: nginxinc.nginx
+      vars:
+        nginx_selinux: true
+        nginx_selinux_tcp_ports:
+          - 80
+          - 443
+        nginx_logrotate_conf_enable: true
+    - include_role:
+        name: nginxinc.nginx_config
+      vars:
+        nginx_config_http_template_enable: true
+        nginx_config_http_template:
+          default:
+            servers:
+              gophish_http_server:
+                listen:
+                  listen_80:
+                    port: 80
+                server_name: phishlet.gophish.local
+                https_redirect: phishlet.gophish.local
+              gophish_https_server:
+                listen:
+                  listen_443:
+                    port: 443
+                    ssl: true
+                server_name: phishlet.gophish.local
+                ssl:
+                  cert: /etc/ssl/certs/phishlet.gophish.local.crt
+                  key: /etc/ssl/private/phishlet.gophish.local.key
+                reverse_proxy:
+                  locations:
+                    backend:
+                      location: /
+                      proxy_connect_timeout: null
+                      proxy_pass: http://gophish
+                      proxy_set_header:
+                        header_host:
+                          name: Host
+                          value: $host
+                        header_x_real_ip:
+                          name: X-Real-IP
+                          value: $remote_addr
+                        header_x_forwarded_for:
+                          name: X-Forwarded-For
+                          value: $proxy_add_x_forwarded_for
+                        header_x_forwarded_host:
+                          name: X-Forwarded-Host
+                          value: $server_name
+                      proxy_ignore_headers:
+                        - Vary
+                        - Cache-Control
+            upstreams:
+              upstream1:
+                name: gophish
+                servers:
+                  server1:
+                    address: localhost
+                    port: 8080
+                    weight: 1
+    - include_role:
+        name: robertdebock.cron
+    - include_role:
+        name: robertdebock.logrotate
+      vars:
+        - name: gophish
+          path: "/var/log/gophish/*.log"
+    - include_role:
+        name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
+      vars:
+        gophish_user: gophish
+        gophish_config_template_source: "{{ playbook_dir }}/templates/config.json.j2"

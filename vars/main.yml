@@ -3,5 +3,6 @@ gophish_url: "https://github.com/gophish/gophish/releases/download/v{{ gophish_v
 gophish_binary: "{{ gophish_install_destination }}/gophish"
 gophish_binary_capability: cap_net_bind_service+eip
 gophish_dependency_packages:
-  - unzip
   - libcap2-bin
+  - coreutils
+  - grep

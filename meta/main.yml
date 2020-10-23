@@ -16,7 +16,13 @@ galaxy_info:
   galaxy_tags: ["gophish"]
 
 dependencies:
+  - role: robertdebock.update_package_cache
+    version: 1.1.14
+    tags: molecule-idempotence-notest
+  - role: robertdebock.core_dependencies
+    version: 1.5.0
   - role: geerlingguy.pip
+    version: 2.0.0
     vars:
       pip_package: python3-pip
       pip_install_packages:

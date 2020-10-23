@@ -11,7 +11,7 @@ lint: |
   ansible-lint
 platforms:
   - name: instance
-    image: geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu1804}-ansible:latest
+    image: ${MOLECULE_IMAGE:-geerlingguy/docker-ubuntu1804-ansible:latest}
     command: ""
     tmpfs:
       - /run
