@@ -73,6 +73,8 @@ This playbook is tested as part of the role CI.
     - include_role:
         name: robertdebock.bootstrap
     - include_role:
+        name: robertdebock.epel        
+    - include_role:
         name: robertdebock.update
       vars:
         update_reboot: no
