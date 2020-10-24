@@ -25,9 +25,6 @@ galaxy_info:
         - bionic
         - artful
         - xenial
-    - name: Amazon
-      versions:
-        - 2018.03
     - name: Amazon Linux 2
       versions:
         - any
@@ -38,7 +35,6 @@ galaxy_info:
         - 32
     - name: EL
       versions:
-        - 7
         - 8
 
   galaxy_tags: ["gophish", "phising"]
