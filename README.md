@@ -96,7 +96,11 @@ This playbook is tested as part of the role CI.
         name: robertdebock.hostname
       vars:
         hostname: gophish.local
-        hostname_reboot: no
+        hostname_reboot: yes
+    - meta: flush_handlers
+    - name: Set Python interpreter to python3 for use by subsequent tasks.
+      set_fact:
+        ansible_python_interpreter: /usr/bin/python3        
     - include_role:
         name: geerlingguy.postfix
     - include_role:
