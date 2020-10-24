@@ -32,6 +32,10 @@
       vars:
         hostname: gophish.local
         hostname_reboot: no
+    - meta: flush_handlers
+    - name: Set Python interpreter to python3 for use by subsequent tasks.
+      set_fact:
+        ansible_python_interpreter: /usr/bin/python3        
     - include_role:
         name: geerlingguy.postfix
     - include_role:
