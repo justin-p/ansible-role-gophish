@@ -6,4 +6,4 @@
 - name: Reload gophish.
   service:
     name: gophish
-    state: reloaded
+    state: restarted
