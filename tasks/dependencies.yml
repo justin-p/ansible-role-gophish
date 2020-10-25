@@ -10,7 +10,7 @@
     - { path: "{{ gophish_install_destination }}",   user: "{{ gophish_user }}", group: "{{ gophish_user }}", mode: '0755' }
     - { path: "{{ gophish_service_log_directory }}", user: "{{ gophish_user }}", group: "root",               mode: '0660' }
 
-- name: Install dependency packages. # noqa 403
+- name: Install dependency packages.
   package:
-    name: "{{ gophish_dependency_packages }}"
+    name: "{{ gophish_dependencies }}"
     state: present

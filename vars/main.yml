@@ -2,7 +2,14 @@
 gophish_url: "https://github.com/gophish/gophish/releases/download/v{{ gophish_version }}/gophish-v{{ gophish_version }}-{{ gophish_platform }}-{{ gophish_arch }}.zip"
 gophish_binary: "{{ gophish_install_destination }}/gophish"
 gophish_binary_capability: cap_net_bind_service+eip
-gophish_dependency_packages:
-  - libcap2-bin
-  - coreutils
-  - grep
+gophish_dependencies_package:
+    - coreutils
+    - grep
+
+_gophish_dependencies_package:
+  default:
+    - libcap2-bin
+  RedHat:
+    - libcap-ng
+
+gophish_dependencies: "{{ _gophish_dependencies_package[ansible_os_family ~ '-' ~ ansible_distribution_major_version] | default(_gophish_dependencies_package[ansible_os_family] | default(_gophish_dependencies_package['default'])) + gophish_dependencies_package }}"
