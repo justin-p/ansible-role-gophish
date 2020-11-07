@@ -73,6 +73,20 @@
     state: started
     enabled: yes
 
+- name: If SELinux, fix issue with rights for gophish
+  shell:
+    cmd: |
+      ausearch -c '(gophish)' --raw | audit2allow -M my-gophish |
+      semodule -i my-gophish.pp
+  when: ansible_selinux.status == 'enabled'
+
+- name: Start gophish after fix
+  service:
+    name: "{{ gophish_service }}"
+    state: started
+    enabled: yes
+  when: ansible_selinux.status == 'enabled'
+
 - name: Get contents of gophish log file and find the temporary admin password # noqa 306
   shell:
     cmd: |
