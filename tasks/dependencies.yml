@@ -8,7 +8,7 @@
     group: "{{ item.group }}"
   with_items:
     - { path: "{{ gophish_install_destination }}",   user: "{{ gophish_user }}", group: "{{ gophish_user }}", mode: '0755' }
-    - { path: "{{ gophish_service_log_directory }}", user: "{{ gophish_user }}", group: "root",               mode: '0660' }
+    - { path: "{{ gophish_service_log_directory }}", user: "{{ gophish_user }}", group: "root",               mode: '0770' }
 
 - name: Install dependency packages.
   package:
