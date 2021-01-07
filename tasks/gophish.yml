@@ -45,7 +45,7 @@
   tags: molecule-idempotence-notest
 
 - name: Copy TLS key pair (private)
-  template:
+  copy:
     src: "{{ gophish_tls_private_key_path }}"
     dest: "{{ gophish_install_destination }}/gophish.pem"
     owner: "{{ gophish_user }}"
@@ -54,7 +54,7 @@
   when: gophish_tls_private_key_path
 
 - name: Copy TLS key pair (private)
-  template:
+  copy:
     src: "{{ gophish_tls_public_key_path }}"
     dest: "{{ gophish_install_destination }}/gophish.crt"
     owner: "{{ gophish_user }}"
