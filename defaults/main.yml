@@ -12,3 +12,5 @@ gophish_service: gophish.service
 gophish_service_template_source: gophish.service.j2
 gophish_service_template_destination: "/etc/systemd/system/{{ gophish_service }}"
 gophish_service_log_directory: /var/log/gophish
+gophish_tls_private_key_path: '{{ None }}'
+gophish_tls_public_key_path: '{{ None }}'

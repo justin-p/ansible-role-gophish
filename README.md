@@ -30,6 +30,8 @@ None.
 | gophish_service_template_source      | The gophish service template to deploy. Will default to included template.                     | gophish.service.j2                                                                |
 | gophish_service_template_destination | The destination where the service should be placed.                                            | /etc/systemd/system/{{ gophish_service }}                                         |
 | gophish_service_log_directory        | The location of the gophish log directory. Used by the service.                                | /var/log/gophish                                                                  |
+| gophish_tls_private_key_path         | The location of the gophish private key file.                                                  | gophish.key                                                                       |
+| gophish_tls_public_key_path          | The location of the gophish public key.                                                        | gophish.crt                                                                       |
 
 `vars/main.yml`
 
@@ -42,9 +44,9 @@ None.
 
 ## Dependencies
 
-[geerlingguy.pip](https://github.com/geerlingguy/ansible-role-pip)  
-[robertdebock.update_package_cache](https://github.com/robertdebock/ansible-role-update_package_cache)  
-[robertdebock.core_dependencies](https://github.com/robertdebock/ansible-role-core_dependencies)  
+[geerlingguy.pip](https://github.com/geerlingguy/ansible-role-pip)
+[robertdebock.update_package_cache](https://github.com/robertdebock/ansible-role-update_package_cache)
+[robertdebock.core_dependencies](https://github.com/robertdebock/ansible-role-core_dependencies)
 
 ## Example Playbooks
 
@@ -73,7 +75,7 @@ This playbook is tested as part of the role CI.
     - include_role:
         name: robertdebock.bootstrap
     - include_role:
-        name: robertdebock.epel        
+        name: robertdebock.epel
     - include_role:
         name: robertdebock.update
       vars:
@@ -102,7 +104,7 @@ This playbook is tested as part of the role CI.
     - meta: flush_handlers
     - name: Set Python interpreter to python3 for use by subsequent tasks.
       set_fact:
-        ansible_python_interpreter: /usr/bin/python3        
+        ansible_python_interpreter: /usr/bin/python3
     - include_role:
         name: geerlingguy.postfix
     - include_role:
