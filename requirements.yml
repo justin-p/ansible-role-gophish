@@ -34,7 +34,7 @@
 - src: https://github.com/nginxinc/ansible-role-nginx
   name: nginxinc.nginx
   version: 0.17.2
-- src: https://github.com/nginxinc/ansible-role-nginx_config
+- src: https://github.com/nginxinc/ansible-role-nginx-config
   name: nginxinc.nginx_config
   version: 0.2.0
 - src: https://github.com/robertdebock/ansible-role-cron
