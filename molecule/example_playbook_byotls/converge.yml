@@ -117,10 +117,17 @@
       vars:
         - name: gophish
           path: "/var/log/gophish/*.log"
+    - name: fetch certs for byotls
+      ansible.builtin.fetch:
+        src: /etc/ssl/private/phishlet.gophish.local.key
+        dest: /tmp/phishlet.gophish.local.key
+      with_items:
+        - {src: "/etc/ssl/private/phishlet.gophish.local.key", dest: "{{ lookup('env', 'HOME') }}/phishlet.gophish.local.key"}
+        - {src: "/etc/ssl/certs/phishlet.gophish.local.crt",   dest: "{{ lookup('env', 'HOME') }}/phishlet.gophish.local.crt"}
     - include_role:
         name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
       vars:
         gophish_user: gophish
         gophish_config_template_source: "{{ playbook_dir }}/templates/config.json.j2"
-        gophish_tls_private_key_path: /etc/ssl/private/phishlet.gophish.local.key
-        gophish_tls_public_key_path: /etc/ssl/certs/phishlet.gophish.local.crt
+        gophish_tls_private_key_path: "{{ lookup('env', 'HOME') }}/phishlet.gophish.local.key"
+        gophish_tls_public_key_path: "{{ lookup('env', 'HOME') }}/phishlet.gophish.local.crt"
