@@ -1,4 +1,5 @@
-- name: robertdebock.update_package_cache
+- src: https://github.com/robertdebock/ansible-role-update_package_cache
+  name: robertdebock.update_package_cache
   version: 2.0.1
 - name: robertdebock.core_dependencies
   version: 2.0.0
