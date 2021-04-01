@@ -1,5 +1,6 @@
 galaxy_info:
   role_name: gophish
+  namespace: justin_p
   author: Justin Perdok
   description: Gophish is an open-source phishing toolkit designed for businesses and penetration testers.
 
