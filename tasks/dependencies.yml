@@ -1,6 +1,6 @@
 ---
 - name: Create directories for gophish.
-  file:
+  ansible.builtin.file:
     path: "{{ item.path }}"
     state: directory
     mode: "{{ item.mode }}"
@@ -11,6 +11,6 @@
     - { path: "{{ gophish_service_log_directory }}", user: "{{ gophish_user }}", group: "root",               mode: '0770' }
 
 - name: Install dependency packages.
-  package:
+  ansible.builtin.package:
     name: "{{ gophish_dependencies }}"
     state: present

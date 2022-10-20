@@ -1,5 +1,5 @@
 ---
 - block:
-  - import_tasks: dependencies.yml
-  - import_tasks: gophish.yml
+  - ansible.builtin.import_tasks: dependencies.yml
+  - ansible.builtin.import_tasks: gophish.yml
   become: true

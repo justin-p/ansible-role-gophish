@@ -1,11 +1,11 @@
 ---
 - name: Check if we already downloaded the zip.
-  stat:
+  ansible.builtin.stat:
     path: "{{ gophish_download_destination }}"
   register: zip
 
 - name: "Downloading gophish-v{{ gophish_version }}-{{ gophish_platform }}-{{ gophish_arch }}.zip."
-  get_url:
+  ansible.builtin.get_url:
     validate_certs: True
     url: "{{ gophish_url }}"
     checksum: "{{ gophish_sha256 }}"
@@ -16,7 +16,7 @@
   when: not zip.stat.exists
 
 - name: Unzip gophish-v{{ gophish_version }}-{{ gophish_platform }}-{{ gophish_arch }}.zip.
-  unarchive:
+  ansible.builtin.unarchive:
     src: "{{ gophish_download_destination }}"
     dest: "{{ gophish_install_destination }}"
     remote_src: yes
@@ -26,26 +26,26 @@
   when: not zip.stat.exists
 
 - name: Ensure files of folders Gophish have the right ownership
-  file:
+  ansible.builtin.file:
     path: "{{ gophish_install_destination }}"
     owner: "{{ gophish_user }}"
     group: "{{ gophish_user }}"
     recurse: True
 
 - name: Ensure gophish binary has the correct permissions.
-  file:
+  ansible.builtin.file:
     path: "{{ gophish_binary }}"
     mode: 0740
 
 - name: Ensure gophish binary is allowed to bind to privileged ports using setcap
-  capabilities:
+  community.general.capabilities:
     path: "{{ gophish_binary }}"
     capability: "{{ gophish_binary_capability }}"
     state: present
   tags: molecule-idempotence-notest
 
 - name: Copy TLS key pair (private)
-  copy:
+  ansible.builtin.copy:
     src: "{{ gophish_tls_private_key_path }}"
     dest: "{{ gophish_install_destination }}/gophish.pem"
     owner: "{{ gophish_user }}"
@@ -54,7 +54,7 @@
   when: gophish_tls_private_key_path
 
 - name: Copy TLS key pair (private)
-  copy:
+  ansible.builtin.copy:
     src: "{{ gophish_tls_public_key_path }}"
     dest: "{{ gophish_install_destination }}/gophish.crt"
     owner: "{{ gophish_user }}"
@@ -63,7 +63,7 @@
   when: gophish_tls_public_key_path
 
 - name: Copy config.json file.
-  template:
+  ansible.builtin.template:
     src: "{{ gophish_config_template_source }}"
     dest: "{{ gophish_config_template_destination }}"
     owner: "{{ gophish_user }}"
@@ -73,7 +73,7 @@
     - Reload gophish.
 
 - name: Ensure gophish service file is properly set
-  template:
+  ansible.builtin.template:
     src: "{{ gophish_service_template_source }}"
     dest: "{{ gophish_service_template_destination }}"
     owner: "{{ gophish_user }}"
@@ -83,30 +83,30 @@
     - Reload systemd.
 
 - name: Run all notified handlers
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 
 - name: Ensure gophish is properly started
-  service:
+  ansible.builtin.service:
     name: "{{ gophish_service }}"
     state: started
     enabled: yes
 
 - name: If SELinux, fix issue with rights for gophish
-  shell:
+  ansible.builtin.shell:
     cmd: |
       ausearch -c '(gophish)' --raw | audit2allow -M my-gophish |
       semodule -i my-gophish.pp
   when: ansible_selinux.status == 'enabled'
 
 - name: Start gophish after fix
-  service:
+  ansible.builtin.service:
     name: "{{ gophish_service }}"
     state: started
     enabled: yes
   when: ansible_selinux.status == 'enabled'
 
 - name: Get contents of gophish log file and find the temporary admin password # noqa 306
-  shell:
+  ansible.builtin.shell:
     cmd: |
       cat {{ gophish_service_log_directory }}/gophish*.log |
       grep 'Please login with the username admin' |
@@ -121,5 +121,5 @@
   until: gophish_log.stdout | length > 0
 
 - name: "{{ gophish_log.stdout }}. You will be prompted to change this temporary password."
-  debug:
+  ansible.builtin.debug:
     msg: "{{ gophish_log.stdout }}"
