@@ -17,10 +17,10 @@ None.
 
 | Variable                             | Description                                                                                    | Default value                                                                     |
 | ------------------------------------ | ---------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| gophish_version                      | The version of gophish that should be installed.                                               | 0.11.0                                                                            |
+| gophish_version                      | The version of gophish that should be installed.                                               | 0.12.1                                                                            |
 | gophish_platform                     | The platform type.                                                                             | linux                                                                             |
 | gophish_arch                         | The architecture.                                                                              | 64bit                                                                             |
-| gophish_sha256                       | The sha256 sum of the downloaded file that matches the version, platform and arch combination. | sha256:f33ac7695850132c04d190f83ef54732421a8d4578be1475d3a819fe6173c462           |
+| gophish_sha256                       | The sha256 sum of the downloaded file that matches the version, platform and arch combination. | sha256:44f598c1eeb72c3b08fa73d57049022d96cea2872283b87a73d21af78a2c6d47           |
 | gophish_user                         | The user that gophish will run as.                                                             | {{ ansible_user }}                                                                |
 | gophish_download_destination         | The download destination of the gophish release zip file.                                      | /tmp/gophish-v{{ gophish_version }}-{{ gophish_platform }}-{{ gophish_arch }}.zip |
 | gophish_install_destination          | The install destination of gophish.                                                            | /home/{{ gophish_user }}/gophish                                                  |
