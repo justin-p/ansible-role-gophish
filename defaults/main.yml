@@ -1,8 +1,8 @@
 ---
-gophish_version: 0.11.0
+gophish_version: 0.12.1
 gophish_platform: linux
 gophish_arch: 64bit
-gophish_sha256: sha256:f33ac7695850132c04d190f83ef54732421a8d4578be1475d3a819fe6173c462
+gophish_sha256: sha256:44f598c1eeb72c3b08fa73d57049022d96cea2872283b87a73d21af78a2c6d47
 gophish_user: "{{ ansible_user }}"
 gophish_download_destination: "/tmp/gophish-v{{ gophish_version }}-{{ gophish_platform }}-{{ gophish_arch }}.zip"
 gophish_install_destination: "/home/{{ gophish_user }}/gophish"
